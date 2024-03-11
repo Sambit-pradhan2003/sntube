@@ -6,7 +6,7 @@ function Homeheder() {
   const [username, setusername] = useState("");
 const [fullname, setfullname] = useState("");
 const [dp, setdp] = useState("");
-const [email, setEmail] = useState({});
+const [email, setEmail] = useState("");
 const[count,setCount1]=useState({})
 
 useEffect(() => {
@@ -19,9 +19,12 @@ useEffect(() => {
       if (response.data && response.data.data) {
         const userData = response.data.data;
 
+        setCount1(userData); // Update state with user data
+        console.log("User's data:", userData);
+
         // Ensure the required properties are available before setting state
         if (userData.username) setusername(userData.username);
-        if (userData.fullName) setfullname(userData.fullName );
+        if (userData.fullName) setfullname(userData.fullName);
         if (userData.avatar) setdp(userData.avatar);
         if (userData.email) setEmail(userData.email);
       }

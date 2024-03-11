@@ -1,47 +1,43 @@
-import React,{ useState } from 'react'
+import React,{ useState,useEffect } from 'react'
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom'
 
 function Login() {
-    const [email, setEmail] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const[username,setusername]=useState("");
-  const [count,setCount]=useState()
-  const[loggedin,setlogedin]=useState(false)
-  const navigate = useNavigate()
+  const [username, setusername] = useState('');
+  const [count, setCount] = useState();
+  const [loggedin, setlogedin] = useState(false);
+  const navigate = useNavigate();
 
-  const  hsubmit=async()=>{
+  const hsubmit = async () => {
     try {
-      const response= await axios.post("/api/v1/users/login",
-      {
-          "username":username,
-          "email":email,
-          "password":password
+      const response = await axios.post("/api/v1/users/login", {
+        "username": username,
+        "email": email,
+        "password": password,
+      });
 
-        //   "username":"sambitp",
-        //   "email":"snd2003.com",
-        //   "password":"12345"
-        })
-        await setCount(response.data);      
-        console.log(count.data);
-        
-      if(count!==undefined&&count!==null){
-        setlogedin(true)
-      }
-    
-      console.log(loggedin)
-      if (loggedin){
-        navigate('/')
-      }
-      console.log(count.data);
-      console.log("clicked")
-        
+      setCount(response.data);
     } catch (error) {
-        console.log("error fetching data",error)
+      console.log("error fetching data", error);
+    }
+  };
+
+  useEffect(() => {
+    // This block will run whenever count is updated
+    console.log(count);
+
+    if (count !== undefined && count !== null) {
+      setlogedin(true);
+
+      if (loggedin) {
+        navigate('/');
+      }
     }
 
-
-  }
+    console.log("clicked");
+  }, [count, loggedin, navigate]);
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
