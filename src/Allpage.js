@@ -10,6 +10,7 @@ import Tweet from '../src/component/pages/Tweet.jsx'
 import Follower from '../src/component/pages/Follower.jsx'
 import Signup from './component/pages/Signup.jsx'
 import Videoplayer from './component/pages/Videoplayer.jsx';
+import Comment from './component/pages/Comment.jsx';
 
 
-export{Login,Likedvideos,History,Subscribers,Videoplayer, Collection,Mycontent ,Homeheder,Playlist,Tweet,Follower,Signup}
+export{Login,Likedvideos, Comment, History,Subscribers,Videoplayer, Collection,Mycontent ,Homeheder,Playlist,Tweet,Follower,Signup}

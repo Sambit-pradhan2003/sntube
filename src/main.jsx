@@ -13,7 +13,7 @@ import{
   Collection,
   Subscribers,
   Playlist,Tweet,Follower,
-  Signup,Videoplayer
+  Signup,Videoplayer,Comment
 } from '../src/Allpage.js'
 
 const router=createBrowserRouter([
@@ -77,6 +77,10 @@ const router=createBrowserRouter([
       {
         path:"Videoplayer",
         element:<Videoplayer/>
+      },
+      {
+        path:"Comment",
+        element:<Comment/>
       },
     ]
   }
