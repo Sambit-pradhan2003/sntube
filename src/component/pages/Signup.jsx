@@ -1,24 +1,41 @@
 // RegistrationForm.js
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const Signup = () => {
   const [email, setEmail] = useState('');
-  const [username, setUsername] = useState('');
+  const [username, setUsername] = useState('')
+  const [fullname, setfullname] = useState('');
   const [password, setPassword] = useState('');
   const [profileImage, setProfileImage] = useState(null);
   const [coverImage, setCoverImage] = useState(null);
-
-  const handleSubmit = (e) => {
+  const [data, setdata] = useState({});
+  
+  const handleSubmit = async(e) => {
     e.preventDefault();
     // Implement your registration logic here
-    console.log({
-      email,
-      username,
-      password,
-      profileImage,
-      coverImage,
-    });
+    try {
+
+      const formData = new FormData();
+        formData.append("username", username);
+        formData.append("fullName", fullname);
+        formData.append("email", email);
+        formData.append("password", password);
+        formData.append("avatar", profileImage); // Change the field name to "avatar"
+        formData.append("coverImage", coverImage);
+
+        const response = await axios.post("/api/v1/users/register", formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        });
+        setdata(response.data);
+      
+    } catch (error) {
+      console.log("error at handlae submit",error)
+    }
   };
+  console.log(data);
 
   return (
     <div className="max-w-md mx-auto my-8 p-8 bg-white shadow-lg rounded-md">
@@ -34,6 +51,19 @@ const Signup = () => {
             className="w-full p-2 border rounded-md"
             placeholder="Enter your email"
             onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+            fullname
+          </label>
+          <input
+            type="fullname"
+            id="fullname"
+            className="w-full p-2 border rounded-md"
+            placeholder="Enter your fullname"
+            onChange={(e) => setfullname(e.target.value)}
             required
           />
         </div>

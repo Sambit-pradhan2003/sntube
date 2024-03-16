@@ -4,6 +4,8 @@ import './index.css';
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
 import Home from '../src/component/Home.jsx';
 import Layout from '../src/Layout.jsx';
+import { Provider } from 'react-redux'
+import store from './store/store.js';
 
 import{
   Login,
@@ -88,9 +90,11 @@ const router=createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
+    <Provider store={store}>
     {/* Pass the router prop directly without wrapping it in an object */}
     <RouterProvider router={router}>
-     
+    
     </RouterProvider>
+    </Provider>
   </React.StrictMode>
 );

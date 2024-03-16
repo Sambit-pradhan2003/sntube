@@ -7,14 +7,23 @@ function Layout() {
   return (
     <div>
       <Header />
-      <div className='mt-14 grid sm:grid-cols-12'>
+
+      <div className='grid sm:grid-cols-12'>
+        <div className='flex-grow sm:col-span-1 sm:block hidden'>
+          <Sidebar/>
+        </div>
+        <div className=' sm:col-span-11'>
+          <Outlet/>
+        </div>
+      </div>
+      {/* <div className='mt-14 grid sm:grid-cols-12'>
         <div className='flex-grow sm:col-span-1 sm:block hidden'>
           <Sidebar />
         </div>
         <div className=' sm:col-span-11'>
           <Outlet />
         </div>
-      </div>
+      </div> */}
 
 
     </div>

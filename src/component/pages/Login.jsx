@@ -1,6 +1,8 @@
 import React,{ useState,useEffect } from 'react'
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom'
+import {useDispatch,useSelector} from "react-redux"
+import { login  } from '../../store/authslice'
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -9,6 +11,13 @@ function Login() {
   const [count, setCount] = useState();
   const [loggedin, setlogedin] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch()
+
+
+  const x =useSelector(state=>state.auth.status)
+  const y=useSelector(state=>state.auth.userdata)
+
+
 
   const hsubmit = async () => {
     try {
@@ -17,16 +26,22 @@ function Login() {
         "email": email,
         "password": password,
       });
-
       setCount(response.data);
+     
+
     } catch (error) {
       console.log("error fetching data", error);
     }
   };
 
+  if (count !== undefined && count !== null){
+    dispatch(login({userdata:count}))
+  }
+
+
   useEffect(() => {
     // This block will run whenever count is updated
-    console.log(count);
+    setlogedin(x)
 
     if (count !== undefined && count !== null) {
       setlogedin(true);
@@ -35,8 +50,6 @@ function Login() {
         navigate('/');
       }
     }
-
-    console.log("clicked");
   }, [count, loggedin, navigate]);
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
