@@ -1,6 +1,7 @@
 // RegistrationForm.js
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate} from 'react-router-dom'
 
 const Signup = () => {
   const [email, setEmail] = useState('');
@@ -10,6 +11,7 @@ const Signup = () => {
   const [profileImage, setProfileImage] = useState(null);
   const [coverImage, setCoverImage] = useState(null);
   const [data, setdata] = useState({});
+  const navigate = useNavigate()
   
   const handleSubmit = async(e) => {
     e.preventDefault();
@@ -35,7 +37,11 @@ const Signup = () => {
       console.log("error at handlae submit",error)
     }
   };
-  console.log(data);
+  useEffect(() => {
+    if (data.statuscode === 200) {
+      navigate("/login");
+    }
+  }, [data.statuscode, navigate]);
 
   return (
     <div className="max-w-md mx-auto my-8 p-8 bg-white shadow-lg rounded-md">
