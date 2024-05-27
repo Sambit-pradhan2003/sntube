@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useNavigate} from 'react-router-dom'
 
 const Signup = () => {
+  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('')
   const [fullname, setfullname] = useState('');
@@ -15,6 +16,8 @@ const Signup = () => {
   
   const handleSubmit = async(e) => {
     e.preventDefault();
+    
+    setLoading(true);
     // Implement your registration logic here
     try {
 
@@ -35,6 +38,8 @@ const Signup = () => {
       
     } catch (error) {
       console.log("error at handlae submit",error)
+    }finally {
+      setLoading(false);
     }
   };
   useEffect(() => {
@@ -43,7 +48,12 @@ const Signup = () => {
     }
   }, [data.statuscode, navigate]);
 
-  return (
+  return (<>
+  {loading && (
+        <div className="absolute inset-0 bg-gray-500 bg-opacity-50 flex items-center justify-center">
+          <div className="loader">Loading...</div>
+        </div>
+      )}
     <div className="max-w-md mx-auto my-8 p-8 bg-white shadow-lg rounded-md">
       <h2 className="text-2xl font-semibold mb-4">Register</h2>
       <form onSubmit={handleSubmit}>
@@ -128,7 +138,7 @@ const Signup = () => {
           Register
         </button>
       </form>
-    </div>
+    </div></>
   );
 };
 

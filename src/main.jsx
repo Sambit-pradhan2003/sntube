@@ -11,11 +11,12 @@ import{
   Login,
   Likedvideos,
   History,
-  Mycontent,
   Collection,
   Subscribers,
-  Playlist,Tweet,Follower,
-  Signup,Videoplayer,Comment
+  Playlist,Tweet,
+  Signup,Videoplayer,Comment,
+  Createvideo,
+  Myprofile
 } from '../src/Allpage.js'
 
 const router=createBrowserRouter([
@@ -45,8 +46,8 @@ const router=createBrowserRouter([
         element:<Collection/>
       },
       {
-        path:"Mycontent",
-        element:<Mycontent/>
+        path:"Myprofile",
+        element:<Myprofile/>
       },
       {
         path:"Subscribers",
@@ -68,10 +69,10 @@ const router=createBrowserRouter([
         path:"Videoplayer/Tweet",
         element:<Tweet/>
       },
-      {
-        path:"Follower",
-        element:<Follower/>
-      },
+      // {
+      //   path:"Follower",
+      //   element:<Follower/>
+      // },
       {
         path:"Signup",
         element:<Signup/>
@@ -83,6 +84,10 @@ const router=createBrowserRouter([
       {
         path:"Comment",
         element:<Comment/>
+      },
+      {
+        path:"create",
+        element:<Createvideo/>
       },
     ]
   }
