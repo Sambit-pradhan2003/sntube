@@ -1,9 +1,10 @@
 import React, { useState,useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import {useDispatch, useSelector } from 'react-redux'
 import axios from 'axios';
 //import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../store/authslice';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -11,23 +12,32 @@ import { logout } from '../../store/authslice';
 
 const Header = ({ toggleSidebar }) => {
   const dispatch = useDispatch();
-  const [isloggedIn, setisLoggedIn] = useState(false);
+  const navigate = useNavigate();
+  const isloggedIn = useSelector(state => state.auth.status);
   const [loggedIn,setloggedIn]=useState(false)
-    const x=useSelector(state=>state.auth.status)
-    useEffect(() => {
-      setloggedIn(x);
-    }, [x]);
+  useEffect(() => {
+    const isLoggedIn2 = localStorage.getItem('isLoggedIn1') === 'true';
+    // console.log(isLoggedIn2,"is logedin at local")
+    setloggedIn(isLoggedIn2);
+  }, [loggedIn,isloggedIn]);
+    
     // console.log(loggedIn)
     // console.log(isloggedIn)
     const handleLogout = async () => {
       try {
-        await axios.post("/api/v1/users/logout");
+        const response=await axios.post("/api/v1/users/logout");
         await dispatch(logout());
         localStorage.removeItem('isLoggedIn1');
+        console.log(response.data)
       } catch (error) {
         console.log("Error fetching data", error);
       }
     };
+    const x=useSelector(state=>state.auth.status)
+    useEffect(() => {
+      setloggedIn(x);
+      navigate('/');
+    }, [x,isloggedIn,loggedIn]);
 
 
   return (
